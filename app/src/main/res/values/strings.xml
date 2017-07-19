@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">ModulePatternDemo</string>
+    <string name="global_scheme">mpd</string>
 </resources>

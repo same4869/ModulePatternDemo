@@ -26,5 +26,6 @@ dependencies {
         compile project(':commlib')
     } else {
         compile project(':main')
+        compile project(':girl')
     }
 }
