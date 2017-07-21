@@ -3,16 +3,23 @@ package com.xun.mpd.girl;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.xun.mpd.girl.bean.NewsBean;
+import com.xun.mpd.girl.presenter.GirlsPresenter;
+import com.xun.mpd.girl.view.IGirlView;
 
 @Route(path = "/girl/GirlMainActivity")
-public class GirlMainActivity extends AppCompatActivity {
+public class GirlMainActivity extends AppCompatActivity implements IGirlView {
     @Autowired
     String kkkk;
+    private Button loadDataBtn;
+    private GirlsPresenter girlsPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +29,19 @@ public class GirlMainActivity extends AppCompatActivity {
 
         Toast.makeText(getApplicationContext(), kkkk, Toast.LENGTH_SHORT).show();
 
+        initView();
+
+    }
+
+    private void initView() {
+        girlsPresenter = new GirlsPresenter(this);
+        loadDataBtn = (Button) findViewById(R.id.load_data_btn);
+        loadDataBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                girlsPresenter.loadData();
+            }
+        });
     }
 
     @Override
@@ -30,5 +50,15 @@ public class GirlMainActivity extends AppCompatActivity {
         intent.putExtra("kkkk", 9999);
         setResult(8888, intent);
         super.finish();
+    }
+
+    @Override
+    public void showDialog() {
+
+    }
+
+    @Override
+    public void showGirls(NewsBean newsBean) {
+        Toast.makeText(getApplicationContext(), newsBean.getList().get(0).getAdoContent(), Toast.LENGTH_SHORT).show();
     }
 }

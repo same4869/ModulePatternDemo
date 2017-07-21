@@ -1,5 +1,6 @@
 package debug;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.xun.mpd.commlib.base.BaseApplication;
 
 /**
@@ -7,4 +8,10 @@ import com.xun.mpd.commlib.base.BaseApplication;
  */
 
 public class GirlApplication extends BaseApplication{
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        ARouter.openDebug();
+        ARouter.init(this);
+    }
 }

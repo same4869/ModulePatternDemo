@@ -12,4 +12,10 @@
         android:layout_height="wrap_content"
         android:text="我是girl模块的页面!"/>
 
+    <Button
+        android:id="@+id/load_data_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="加载数据"/>
+
 </LinearLayout>
