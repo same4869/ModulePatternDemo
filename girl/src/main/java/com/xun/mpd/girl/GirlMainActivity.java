@@ -10,16 +10,22 @@ import android.widget.Toast;
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.xun.mpd.commlib.base.BaseActivity;
+import com.xun.mpd.commlib.base.BasePresenter;
 import com.xun.mpd.girl.bean.NewsBean;
 import com.xun.mpd.girl.presenter.GirlsPresenter;
 import com.xun.mpd.girl.view.IGirlView;
 
 @Route(path = "/girl/GirlMainActivity")
-public class GirlMainActivity extends AppCompatActivity implements IGirlView {
+public class GirlMainActivity extends BaseActivity<IGirlView, GirlsPresenter> implements IGirlView {
     @Autowired
     String kkkk;
     private Button loadDataBtn;
-    private GirlsPresenter girlsPresenter;
+
+    @Override
+    protected GirlsPresenter createPresenter() {
+        return new GirlsPresenter();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,12 +40,11 @@ public class GirlMainActivity extends AppCompatActivity implements IGirlView {
     }
 
     private void initView() {
-        girlsPresenter = new GirlsPresenter(this);
         loadDataBtn = (Button) findViewById(R.id.load_data_btn);
         loadDataBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                girlsPresenter.loadData();
+                presenter.loadData();
             }
         });
     }

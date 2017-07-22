@@ -1,5 +1,6 @@
 package com.xun.mpd.girl.presenter;
 
+import com.xun.mpd.commlib.base.BasePresenter;
 import com.xun.mpd.girl.bean.NewsBean;
 import com.xun.mpd.girl.model.GirlModelImpl;
 import com.xun.mpd.girl.model.IGirlModel;
@@ -9,20 +10,15 @@ import com.xun.mpd.girl.view.IGirlView;
  * Created by xunwang on 2017/7/21.
  */
 
-public class GirlsPresenter implements BasePresenter{
-    private IGirlView mView;
+public class GirlsPresenter extends BasePresenter<IGirlView> {
     private GirlModelImpl mModel = new GirlModelImpl();
 
-    public GirlsPresenter(IGirlView mView){
-        this.mView = mView;
-    }
-
-    public void loadData(){
-        if(mView!=null){
+    public void loadData() {
+        if (getView() != null) {
             mModel.loadGirl(new IGirlModel.onGirlListener() {
                 @Override
                 public void onComplete(NewsBean newsBean) {
-                    mView.showGirls(newsBean);
+                   getView().showGirls(newsBean);
                 }
 
                 @Override
