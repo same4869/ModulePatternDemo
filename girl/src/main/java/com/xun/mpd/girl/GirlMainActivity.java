@@ -58,11 +58,6 @@ public class GirlMainActivity extends BaseActivity<IGirlView, GirlsPresenter> im
     }
 
     @Override
-    public void showDialog() {
-
-    }
-
-    @Override
     public void showGirls(NewsBean newsBean) {
         Toast.makeText(getApplicationContext(), newsBean.getList().get(0).getAdoContent(), Toast.LENGTH_SHORT).show();
     }

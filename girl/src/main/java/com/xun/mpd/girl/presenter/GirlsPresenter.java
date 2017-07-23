@@ -15,15 +15,21 @@ public class GirlsPresenter extends BasePresenter<IGirlView> {
 
     public void loadData() {
         if (getView() != null) {
+            getView().showDialog();
             mModel.loadGirl(new IGirlModel.onGirlListener() {
                 @Override
                 public void onComplete(NewsBean newsBean) {
-                   getView().showGirls(newsBean);
+                    if (getView() != null) {
+                        getView().showGirls(newsBean);
+                        getView().dismissDialog();
+                    }
                 }
 
                 @Override
                 public void onError() {
-
+                    if (getView() != null) {
+                        getView().dismissDialog();
+                    }
                 }
             });
         }
