@@ -56,7 +56,10 @@ public class PicListAdapter extends RecyclerArrayAdapter<AndroidInfoBean.Results
         public void setData(AndroidInfoBean.ResultsBean data) {
             super.setData(data);
             if (data.getImages() != null) {
+                imageView.setVisibility(View.VISIBLE);
                 Glide.with(getContext()).load(data.getImages().get(0)).override(400, 400).into(imageView);
+            }else{
+                imageView.setVisibility(View.GONE);
             }
             textView.setText(data.getDesc());
         }
