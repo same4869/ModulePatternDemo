@@ -6,16 +6,24 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.widget.Toast;
 
 import com.jude.easyrecyclerview.EasyRecyclerView;
+import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 import com.xun.mpd.commlib.base.BaseActivity;
 import com.xun.mpd.pic.adapter.PicListAdapter;
-import com.xun.mpd.pic.bean.PicBean;
+import com.xun.mpd.pic.bean.AndroidInfoBean;
 import com.xun.mpd.pic.presenter.PicPresenter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PicMainActivity extends BaseActivity<IPicView, PicPresenter> implements IPicView, RecyclerArrayAdapter
         .OnLoadMoreListener, SwipeRefreshLayout.OnRefreshListener {
     private EasyRecyclerView recyclerView;
     private PicListAdapter picAdapter;
+
+    private List<AndroidInfoBean.ResultsBean> datas = new ArrayList<>();
+    private int count = 20;
+    private int curPage = 1;
 
     @Override
     protected PicPresenter createPresenter() {
@@ -39,32 +47,44 @@ public class PicMainActivity extends BaseActivity<IPicView, PicPresenter> implem
         picAdapter.setMore(R.layout.view_more, this);
         recyclerView.setAdapter(picAdapter);
         recyclerView.setRefreshListener(this);
+        picAdapter.setOnMyItemClickListener(new PicListAdapter.OnMyItemClickListener() {
+            @Override
+            public void onItemClick(int position, BaseViewHolder holder) {
+                Toast.makeText(getApplicationContext(), "position --> " + position, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void initData() {
-        presenter.loadPicInfo();
+        presenter.loadPicInfo(count, curPage);
     }
 
     @Override
-    public void showPicInfo(PicBean picBean) {
+    public void showPicInfo(AndroidInfoBean picBean) {
         picAdapter.clear();
-        picAdapter.addAll(picBean.getList());
-//        Toast.makeText(getApplicationContext(), picBean.getFeedList().get(0).getContent(), Toast.LENGTH_SHORT).show();
+        datas.clear();
+        picAdapter.addAll(picBean.getResults());
+        datas.addAll(picBean.getResults());
+        recyclerView.setRefreshing(false);
+    }
+
+    @Override
+    public void showPicAddInfo(AndroidInfoBean picBean) {
+        picAdapter.addAll(picBean.getResults());
+        datas.addAll(picBean.getResults());
     }
 
     @Override
     public void onLoadMore() {
-        Toast.makeText(getApplicationContext(), "onLoadMore", Toast.LENGTH_SHORT).show();
+        if (datas.size() % count == 0) {
+            curPage++;
+            presenter.loadPicInfo(count, curPage);
+        }
     }
 
     @Override
     public void onRefresh() {
-        Toast.makeText(getApplicationContext(), "onRefresh", Toast.LENGTH_SHORT).show();
-        recyclerView.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                recyclerView.setRefreshing(false);
-            }
-        }, 2000);
+        curPage = 1;
+        presenter.loadPicInfo(count, curPage);
     }
 }

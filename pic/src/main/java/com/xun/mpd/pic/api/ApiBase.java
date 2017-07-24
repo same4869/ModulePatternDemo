@@ -26,7 +26,7 @@ public class ApiBase {
                 .connectTimeout(connectTime <= 0 ? 30 : connectTime, TimeUnit.SECONDS)
                 .build();
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(baseUrl == null ? "http://appapi.tingtoutiao.com" : baseUrl)
+                .baseUrl(baseUrl == null ? "http://gank.io/api/data/" : baseUrl)
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();

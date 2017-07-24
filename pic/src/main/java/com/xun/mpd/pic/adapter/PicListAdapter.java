@@ -10,13 +10,13 @@ import com.bumptech.glide.Glide;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 import com.xun.mpd.pic.R;
-import com.xun.mpd.pic.bean.PicBean;
+import com.xun.mpd.pic.bean.AndroidInfoBean;
 
 /**
  * Created by xunwang on 2017/7/24.
  */
 
-public class PicListAdapter extends RecyclerArrayAdapter<PicBean.ListBean> {
+public class PicListAdapter extends RecyclerArrayAdapter<AndroidInfoBean.ResultsBean> {
     public OnMyItemClickListener mOnItemClickListener;
 
     public PicListAdapter(Context context) {
@@ -41,7 +41,7 @@ public class PicListAdapter extends RecyclerArrayAdapter<PicBean.ListBean> {
         });
     }
 
-    private class PicViewHolder extends BaseViewHolder<PicBean.ListBean> {
+    private class PicViewHolder extends BaseViewHolder<AndroidInfoBean.ResultsBean> {
 
         private ImageView imageView;
         private TextView textView;
@@ -53,10 +53,12 @@ public class PicListAdapter extends RecyclerArrayAdapter<PicBean.ListBean> {
         }
 
         @Override
-        public void setData(PicBean.ListBean data) {
+        public void setData(AndroidInfoBean.ResultsBean data) {
             super.setData(data);
-            Glide.with(getContext()).load(data.getAdoImgUrl()).into(imageView);
-            textView.setText(data.getAdoTitle());
+            if (data.getImages() != null) {
+                Glide.with(getContext()).load(data.getImages().get(0)).override(400, 400).into(imageView);
+            }
+            textView.setText(data.getDesc());
         }
     }
 
