@@ -1,4 +1,4 @@
-package com.xun.mpd.girl.api;
+package com.xun.mpd.pic.api;
 
 import java.util.concurrent.TimeUnit;
 

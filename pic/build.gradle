@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         if (isModule.toBoolean()) {
-            applicationId "com.xun.mpd.girl"
+            applicationId "com.xun.mpd.pic"
         }
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
@@ -50,4 +50,5 @@ dependencies {
     compile project(':commlib')
 
     annotationProcessor 'com.alibaba:arouter-compiler:1.0.3'
+    compile 'com.jude:easyrecyclerview:4.4.0'
 }
