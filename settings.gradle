@@ -1,1 +1,1 @@
-include ':app', ':commlib', ':main', ':girl', ':pic'
+include ':app', ':commlib', ':main', ':girl', ':pic', ':otherapp'
