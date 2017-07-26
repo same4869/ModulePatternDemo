@@ -40,6 +40,12 @@ public class MessengerConnManager implements IBinder.DeathRecipient {
 
     public static final String TAG = "kkkkkkkk";
     public static final int MAX_RETRY_COUNT = 10;
+    //如果sendMsgFromMap HANDLER_TIMES次都在处理空数据则转为清闲模式，如果有数据则变为忙碌模式
+    private static final int IDLE_TIME = 1500;
+    private static final int BUSY_TIME = 50;
+    private static final int HANDLER_TIMES = 20;
+    private int CUR_TIME = IDLE_TIME;
+    private int emptyTimes = 0;
 
     private static MessengerConnManager instance;
     private Context mApplicationContext;
@@ -81,10 +87,10 @@ public class MessengerConnManager implements IBinder.DeathRecipient {
                 public void handleMessage(Message msg) {
                     super.handleMessage(msg);
                     sendMsgFromMap();
-                    mHandler.sendEmptyMessage(0);
+                    mHandler.sendEmptyMessageDelayed(0, CUR_TIME);
                 }
             };
-            mHandler.sendEmptyMessage(0);
+            mHandler.sendEmptyMessageDelayed(0, CUR_TIME);
         }
     }
 
@@ -112,12 +118,25 @@ public class MessengerConnManager implements IBinder.DeathRecipient {
      * 从内存map中读取相应msg并发送
      */
     private void sendMsgFromMap() {
+//        Log.d("kkkkkkkk", "sendMsgFromMap mMsgMap.size() == 0 ? --> " + mMsgMap.size());
         Iterator<Map.Entry<MsgType, LinkedBlockingQueue<SendMsgBean>>> iterator = mMsgMap.entrySet().iterator();
         //遍历map
         while (iterator.hasNext()) {
             Map.Entry<MsgType, LinkedBlockingQueue<SendMsgBean>> entry = iterator.next();
             MsgType targetType = entry.getKey();
             LinkedBlockingQueue<SendMsgBean> msgs = entry.getValue();
+//            Log.d("kkkkkkkk", "msgs.size() --> " + msgs.size());
+            if (msgs.size() == 0) {
+                emptyTimes++;
+                if (emptyTimes > HANDLER_TIMES) {
+                    emptyTimes = HANDLER_TIMES + 1;
+                    CUR_TIME = IDLE_TIME;
+                }
+                return;
+            } else {
+                emptyTimes = 0;
+                CUR_TIME = BUSY_TIME;
+            }
             if (!msgs.isEmpty()) {  //某个targettype消息队列不为空
                 AppServiceConn conn = mConnMap.get(targetType);
                 if (conn == null) {         //未建立connection连接
