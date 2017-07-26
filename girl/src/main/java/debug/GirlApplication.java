@@ -1,6 +1,7 @@
 package debug;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.xun.mpd.commlib.appconn.manager.MessengerConnManager;
 import com.xun.mpd.commlib.base.BaseApplication;
 
 /**
@@ -13,5 +14,6 @@ public class GirlApplication extends BaseApplication{
         super.onCreate();
         ARouter.openDebug();
         ARouter.init(this);
+        MessengerConnManager.getInstance().init(this);
     }
 }
