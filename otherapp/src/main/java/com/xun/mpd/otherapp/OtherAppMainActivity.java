@@ -15,11 +15,13 @@ import android.widget.Button;
 import com.xun.mpd.IMyAidlInterface;
 import com.xun.mpd.commlib.appconn.manager.MessengerConnManager;
 import com.xun.mpd.commlib.util.AppUtil;
+import com.xun.mpd.otherapp.capture.ScreenCaptureActivity;
 
 public class OtherAppMainActivity extends AppCompatActivity {
     private Button aidlBtn, messengerBtn;
     private boolean isConn;
     private IMyAidlInterface mIMyAidlInterface;
+    private Button screen_capture_btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +54,14 @@ public class OtherAppMainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 MessengerConnManager.getInstance().sendMsg(MessengerConnManager.MsgType.OTHERAPP, MessengerConnManager
                         .MsgType.GIRL, "我来自other呵呵", null);
+            }
+        });
+        screen_capture_btn = (Button) findViewById(R.id.screen_capture_btn);
+        screen_capture_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(OtherAppMainActivity.this, ScreenCaptureActivity.class);
+                startActivity(intent);
             }
         });
     }

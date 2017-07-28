@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.xun.mpd.otherapp.OtherAppMainActivity">
 
     <Button
@@ -17,5 +18,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="给其他APP发消息Messenger"/>
+
+    <Button
+        android:id="@+id/screen_capture_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="截图页面"/>
 
 </LinearLayout>

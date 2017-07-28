@@ -9,9 +9,16 @@ import com.xun.mpd.commlib.appconn.manager.MessengerConnManager;
  */
 
 public class MyApp extends Application {
+    private static MyApp instance;
+
     @Override
     public void onCreate() {
         super.onCreate();
+        instance = this;
         MessengerConnManager.getInstance().init(this);
+    }
+
+    public static MyApp getInstance(){
+        return instance;
     }
 }
