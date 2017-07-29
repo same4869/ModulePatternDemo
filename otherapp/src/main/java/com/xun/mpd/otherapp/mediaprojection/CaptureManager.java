@@ -193,7 +193,6 @@ public class CaptureManager {
             super.onPostExecute(ImgPath);
             //预览图片
             if (ImgPath != null) {
-                //在华为PAD上会出现为空的情况，如果是空取本地的
                 Log.d("kkkkkkkk", "截屏图片保存成功 ImgPath --> " + ImgPath);
             }
         }
