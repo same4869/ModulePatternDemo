@@ -14,6 +14,7 @@
             <option value="$PROJECT_DIR$/main" />
             <option value="$PROJECT_DIR$/otherapp" />
             <option value="$PROJECT_DIR$/pic" />
+            <option value="$PROJECT_DIR$/video" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
