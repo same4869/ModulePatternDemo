@@ -151,7 +151,6 @@
     <string name="no_section">不保留分段</string>
 
 
-
     <string name="open_bigbang">关闭分词</string>
     <string name="close_bigbang">开启分词</string>
 
@@ -159,7 +158,6 @@
     <string name="float_view_hide">全能分词悬浮窗（隐藏状态）</string>
     <string name="float_view">展开悬浮窗功能</string>
     <string name="float_view_to_hide">收起悬浮窗</string>
-
 
 
     <string name="share_content">BigBang，不止是分词！更是您的高效助手！单击、双击、长按、复制等多种触发方式随心选！更有全局复制，图片识别等黑科技加持，给你的手机插上翅膀！</string>

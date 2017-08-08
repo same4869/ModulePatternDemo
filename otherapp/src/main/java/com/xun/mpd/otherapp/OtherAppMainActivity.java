@@ -30,7 +30,7 @@ public class OtherAppMainActivity extends AppCompatActivity {
     public static final int REQUEST_MEDIA_PROJECTION = 18;
     private static final int REQUEST_CODE = 19;
     private MediaProjectionManager mMediaProjectionManager;
-    private Button aidlBtn, messengerBtn, recordBtn, captureBtn;
+    private Button aidlBtn, messengerBtn, recordBtn, captureBtn, coordinatorLayoutBtn;
     private boolean isConn;
     private IMyAidlInterface mIMyAidlInterface;
     private Button screen_capture_btn;
@@ -97,6 +97,15 @@ public class OtherAppMainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 requestCapturePermission();
+            }
+        });
+
+        coordinatorLayoutBtn = (Button) findViewById(R.id.coordinatorLayout_btn);
+        coordinatorLayoutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(OtherAppMainActivity.this, CoordinatorActivity.class);
+                startActivity(intent);
             }
         });
     }
@@ -169,7 +178,7 @@ public class OtherAppMainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(mRecorder != null){
+        if (mRecorder != null) {
             mRecorder.quit();
             mRecorder = null;
         }
